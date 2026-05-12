@@ -1,7 +1,7 @@
 id: dev.overlayed.Overlayed
 
 runtime: org.gnome.Platform
-runtime-version: '50'
+runtime-version: "50"
 sdk: org.gnome.Sdk
 command: overlayed
 finish-args:
@@ -20,34 +20,24 @@ modules:
   - name: overlayed
     buildsystem: simple
     build-commands:
-      - bsdtar -Oxf overlayed.deb 'data.tar.gz' | bsdtar -xf -
+      - ar x overlayed.deb && tar xf data.tar.*
       - |
         desktop-file-edit \
           --set-icon="$FLATPAK_ID" \
-          usr/share/applications/overlayed.desktop
+          usr/share/applications/Overlayed.desktop
 
       - install -Dm755 usr/bin/* /app/bin
       - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/overlayed.png /app/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png
       - install -Dm644 usr/share/icons/hicolor/128x128/apps/overlayed.png /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.png
       - install -Dm644 usr/share/icons/hicolor/32x32/apps/overlayed.png /app/share/icons/hicolor/32x32/apps/${FLATPAK_ID}.png
-      - install -Dm644 usr/share/applications/overlayed.desktop /app/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 usr/share/applications/Overlayed.desktop /app/share/applications/${FLATPAK_ID}.desktop
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
 
     sources:
       - type: file
-        url: https://raw.githubusercontent.com/overlayeddev/overlayed/4cc468dbecf30e3658839a06fa617d99632a6e50/distribution/dev.overlayed.Overlayed.metainfo.xml
-        sha256: 393ca42f40412940107846b1f0b53db5c4ed6c6c5e0fea5fef1711fa561c0f5a
+        path: "/home/michael/Downloads/overlayed stuff/both repos/overlayed/distribution/dev.overlayed.Overlayed.metainfo.xml"
 
       - type: file
-        url: https://github.com/overlayeddev/overlayed/releases/download/v0.6.2/overlayed_0.6.2_amd64.deb
-        sha256: 9e5736e17f23b13892703dcbe44c9a32676fbc51e548b585e890afee02dafb59
+        path: "/home/michael/Downloads/overlayed stuff/both repos/overlayed/apps/desktop/src-tauri/target/release/bundle/deb/Overlayed_0.6.2_amd64.deb"
         dest-filename: overlayed.deb
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/overlayeddev/overlayed/releases/latest
-          version-query: .tag_name
-          url-query:
-            '"https://github.com/overlayeddev/overlayed/releases/download/"
-            + $version + "/overlayed_" + $version + "_amd64.deb"'
-        # TODO: raise upstream here to support arm build for linux
         only-arches: [x86_64]
