@@ -5,8 +5,6 @@ build:
 	flatpak-builder \
 		--repo=repo \
 		--user \
-		--disable-rofiles-fuse \
-		--install-deps-from=flathub \
 		--force-clean \
 		--default-branch=master \
 		--arch=x86_64 \
