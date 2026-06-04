@@ -13,7 +13,6 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
   - --filesystem=xdg-run/tray-icon:create
-  - --device=dri
 
 modules:
   - shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json
